@@ -11,6 +11,7 @@ var gulp       = require('gulp'),
 	map        = require('map-stream'),
 	browserSync = require('browser-sync'),
 	runSequence = require('run-sequence'),
+    autoprefixer = require('gulp-autoprefixer'),
 	gulpPlugins = require('gulp-load-plugins')();
 
 // chalk config
@@ -22,6 +23,7 @@ var	SETTINGS = {
 	src: {
 		app: 'app/',
 		css: 'app/css/',
+        scss: 'app/scss/',
 		js: 'app/js/',
 		templates: 'app/templates/',
 		images: 'app/img/',
@@ -71,7 +73,7 @@ gulp.task('server', function () {
 
 	console.log('------------------>>>> firing server  <<<<-----------------------');
 	gulpPlugins.connect.server(serverConfig);
-	
+
 	console.log('Started connect web server on http://localhost:' + serverConfig.port + '.');
 	open('http://localhost:' + serverConfig.port);
 });
@@ -116,7 +118,7 @@ gulp.task('concat:bower', function () {
 		.pipe(gulpPlugins.sass())
 		.pipe(map(function (file, callback) {
 			var relativePath = path.dirname(path.relative(path.resolve(SETTINGS.src.bower), file.path));
-
+            console.log('oloo');
 			// CSS path resolving
 			// Taken from https://github.com/enyojs/enyo/blob/master/tools/minifier/minify.js
 			var contents = file.contents.toString().replace(/url\([^)]*\)/g, function (match) {
@@ -163,8 +165,8 @@ gulp.task('convert:scss', function () {
 		console.log(errorLog(err));
 	};
 
-    var stream = gulp.src(SETTINGS.src.css + 'application.scss')
-       .pipe(gulpPlugins.sass({includePaths: [SETTINGS.src.css], onError: showError}))
+    var stream = gulp.src(SETTINGS.src.scss + 'application.scss')
+       .pipe(gulpPlugins.sass({includePaths: [SETTINGS.src.scss], onError: showError}))
        .pipe(gulp.dest(SETTINGS.scss))
        .pipe(gulpPlugins.connect.reload());
     return stream;
@@ -175,6 +177,10 @@ gulp.task('concat:css', ['convert:scss'], function () {
 	console.log('-------------------------------------------------- CONCAT :css ');
 	gulp.src([SETTINGS.src.css + 'fonts.css', SETTINGS.scss + 'application.css', SETTINGS.src.css + '*.css'])
 	    .pipe(gulpPlugins.concat('styles.css'))
+        .pipe(autoprefixer({
+            browsers: ['last 2 versions'],
+            cascade: false
+        }))
 	    .pipe(gulpPlugins.if(isProduction, gulpPlugins.minifyCss({keepSpecialComments: '*'})))
 	    .pipe(gulp.dest(SETTINGS.build.css))
 	    .pipe(gulpPlugins.connect.reload());
@@ -201,7 +207,7 @@ gulp.task('copy', ['copy:html', 'copy:images', 'copy:fonts', 'copy:html:root']);
 
 
 gulp.task('copy:html', function () {
-	
+
 	console.log('-------------------------------------------------- COPY :html');
 	gulp.src([SETTINGS.src.templates + '*.html', SETTINGS.src.templates + '**/*.html'])
 		.pipe(gulpPlugins.if(isProduction, gulpPlugins.minifyHtml({comments: false, quotes: true, spare: true, empty: true, cdata: true})))
@@ -210,7 +216,7 @@ gulp.task('copy:html', function () {
 });
 
 gulp.task('copy:html:root', function () {
-	
+
 	console.log('-------------------------------------------------- COPY :html:root');
 	gulp.src(SETTINGS.src.app + '*.html')
 		.pipe(gulpPlugins.if(isProduction, gulpPlugins.minifyHtml({comments: false, quotes: true, spare: true, empty: true, cdata: true})))
@@ -241,16 +247,16 @@ gulp.task('copy:fonts', function () {
 
 	$ echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
 =========================================================================================================*/
-	
+
 gulp.task('watch', function () {
-	
+
 	console.log('watching all the files.....');
 
 	var watchedFiles = [];
 
 	watchedFiles.push(gulp.watch([SETTINGS.src.css + '*.css',  SETTINGS.src.css + '**/*.css'],  ['concat:css']));
-	
-	watchedFiles.push(gulp.watch([SETTINGS.src.css + '*.scss', SETTINGS.src.css + '**/*.scss'], ['concat:css']));
+
+	watchedFiles.push(gulp.watch([SETTINGS.src.scss + '*.scss', SETTINGS.src.scss + '**/*.scss'], ['concat:css']));
 
     watchedFiles.push(gulp.watch([SETTINGS.src.js + '*.js',    SETTINGS.src.js + '**/*.js'],    ['concat:js']));
 
@@ -279,7 +285,7 @@ gulp.task('watch', function () {
 	watchedFiles.forEach(function (watchedFile) {
 		watchedFile.on('change', onChange);
 	});
-	
+
 });
 
 
@@ -335,7 +341,7 @@ gulp.task('zip', function () {
     setTimeout(function () {
 		runSequence('clean:zip');
     }, 500); // wait for file creation
-	    
+
 });
 
 /*============================================================
