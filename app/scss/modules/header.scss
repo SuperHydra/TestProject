@@ -1,0 +1,55 @@
+.navbar {
+    background-color: #009587;
+    border-radius: 0;
+    height: 144px;
+    position: relative;
+    transition: all 0.4s ease-out;
+    @include box-shadow-header;
+
+    .container-fluid {
+        height: 100%;
+
+        .row {
+            height: 100%;
+
+            & > div {
+                height: 100%;
+
+                h1 {
+                    color: $header_color;
+                    position: absolute;
+                    bottom: 10px;
+                    padding-left: 35px;
+                }
+            }
+        }
+    }
+
+    .breadcrumb {
+        border-radius: 0;
+        position: relative;
+        bottom: 10px;
+        top: 120px;
+        @include box-shadow-header;
+        li {
+            cursor: pointer;
+        }
+    }
+
+    @media screen and (max-width: $tablet_bp){
+        .breadcrumb-wrapper {
+            position: absolute;
+            top: 10px;
+            width: 80%;
+        }
+
+        .title-wrapper {
+            position: absolute;
+
+        }
+    }
+
+    @media screen and (max-width: $mobile_bp){
+
+    }
+}

@@ -1,0 +1,114 @@
+/*======================================================================
+=            Import all your .scss files, order is very important
+
+	(The file which is not imported will not be include in final build )
+
+	CSS - All the css files will be loaded in the order they appear
+		in the app/css directory
+========================================================================*/
+/*
+  To use bootstrap-sass-official run:
+  bower install --save bootstrap-sass-official
+
+  Then uncomment the two lines below:
+*/
+body {
+  font-family: Arial, sans-serif; }
+
+#main-wrapper {
+  max-width: 1280px;
+  min-width: 320px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px 20px; }
+
+h1 {
+  font-size: 20px;
+  font-weight: 400; }
+
+input.form-control {
+  border-radius: 0; }
+
+p {
+  font-size: 1.2em; }
+
+.volume-prediction {
+  transition: all 0.4s ease-out;
+  width: 50%;
+  margin: 120px auto 0;
+  position: relative; }
+  .volume-prediction .btn-default {
+    background-color: #009688;
+    color: rgba(255, 255, 255, 0.84);
+    position: relative;
+    padding: 8px 30px;
+    border: 0;
+    margin: 10px 1px;
+    border-radius: 2px;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background-color 0.2s ease, box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+    outline: none; }
+    .volume-prediction .btn-default:hover {
+      box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.12), 0 1px 6px 0 rgba(0, 0, 0, 0.12);
+      background-color: #00aa9a; }
+  .volume-prediction.results-active {
+    margin: 80px auto 0; }
+  .volume-prediction .label-danger {
+    position: relative;
+    display: inline-block;
+    left: 100%;
+    font-size: 1em;
+    top: 3px;
+    border-radius: 0;
+    transform: translateX(-100%); }
+  .volume-prediction__results {
+    transform: translateY(300px);
+    transition: all 0.5s ease-out;
+    position: absolute;
+    height: 200px;
+    width: 100%; }
+  .volume-prediction__results.active {
+    transform: translateY(0px);
+    transition: all 0.3s ease-out; }
+  @media screen and (max-width: 720px) {
+    .volume-prediction {
+      width: 80%;
+      margin: 80px auto 0; } }
+  @media screen and (max-width: 480px) {
+    .volume-prediction {
+      width: 100%; } }
+
+.navbar {
+  background-color: #009587;
+  border-radius: 0;
+  height: 144px;
+  position: relative;
+  transition: all 0.4s ease-out;
+  box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); }
+  .navbar .container-fluid {
+    height: 100%; }
+    .navbar .container-fluid .row {
+      height: 100%; }
+      .navbar .container-fluid .row > div {
+        height: 100%; }
+        .navbar .container-fluid .row > div h1 {
+          color: #fff;
+          position: absolute;
+          bottom: 10px;
+          padding-left: 35px; }
+  .navbar .breadcrumb {
+    border-radius: 0;
+    position: relative;
+    bottom: 10px;
+    top: 120px;
+    box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); }
+    .navbar .breadcrumb li {
+      cursor: pointer; }
+  @media screen and (max-width: 720px) {
+    .navbar .breadcrumb-wrapper {
+      position: absolute;
+      top: 10px;
+      width: 80%; }
+    .navbar .title-wrapper {
+      position: absolute; } }
