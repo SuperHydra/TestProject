@@ -11,8 +11,6 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$httpP
     function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
         'use strict';
 
-
-
         $stateProvider
 
             .state('volume-prediction', {
@@ -39,10 +37,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$httpP
  ==================================================================*/
 
 app.run(['$rootScope', function ($rootScope) {
-
     'use strict';
-
-    console.log('Angular.js run() function...');
 }]);
 
 

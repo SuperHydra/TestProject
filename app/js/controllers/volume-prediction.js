@@ -13,7 +13,6 @@ app.controller('VolumePredictionCtrl', ['$scope', '$rootScope', 'VolumeCalculato
 
     $scope.calculateFutureVolume = function () {
         $scope.futureVolume = VolumeCalculator.getFutureVolume($scope.formData, 3);
-        console.log($scope.futureVolume);
         ServerAPI.sendDataToServer({
             time: new Date(),
             initialValues: $scope.formData,

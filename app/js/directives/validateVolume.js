@@ -36,7 +36,6 @@ app.directive('validateVolume', function () {
                     valid = isCorrectVolume(value);
                     ctrl.$setValidity('validateVolume', valid);
                     scope.hints.volume = hint;
-
                 }
                 return value;
             });

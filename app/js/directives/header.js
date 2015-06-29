@@ -6,7 +6,6 @@ function headerDirective() {
         scope: {},
 
         controller: function ($scope) {
-
         }
     }
 }

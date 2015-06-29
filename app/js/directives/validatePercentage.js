@@ -22,7 +22,6 @@ app.directive('validatePercentage', function () {
     return {
         restrict: 'A',
         require: 'ngModel',
-
         link: function (scope, elem, attr, ctrl) {
             ctrl.$parsers.unshift(function (value) {
                 var valid = false;
@@ -31,7 +30,7 @@ app.directive('validatePercentage', function () {
                     ctrl.$setValidity('validatePercentage', valid);
                     scope.hints.percentage = hint;
                 }
-                return valid ? value / 100 : undefined;
+                return valid ? value / 100 : null;
             });
             ctrl.$formatters.unshift(function (value) {
                 var valid = false;
