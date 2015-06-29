@@ -1,16 +1,20 @@
 <p>
     To generate the basic skeleton of the project was chosen one of the generators provided
     in the task description (generator-boom: https://www.npmjs.com/package/generator-boom).
-    It was quite useful. Some modifications concerning gulpfile were done.
+    It was quite useful. Some modifications concerning gulpfile were done. For example, I added gulp-autoprefixer, a powerfool tool
+    to parse CSS and add vendor prefixes to CSS rules using values from Can I Use. Also the folders structure was a bit modified.
+    All custom javascript code is concatenated by gulp into one single file ('build/js/all.js'), third party libraries are
+    concatenated into 'build/bower_bower.js' and 'build/_bower.css' files. (For third party libraries I used bower, for dev-dependencies - npm).
 </p>
 <p>
-    The project has 2 pages, routed by ui-router module. Simple volume count algorithm and Server-side connectivity are
+    The project has 2 pages (Calculator and About-page), routed by ui-router module.
+    Each of these has it's own template and controller. Simple future volume count algorithm and Server-side connectivity are
     wrapped into the angular services. The Application has form fields validation, partially realized by angular
     built-in directives and
-    services, and partially by myself also using angular directives.
+    services, and partially by myself using angular directives.
 </p>
 <p>
     The application is tested with Jasmine framework using test runner karma. To style the application were used
     custom stylesheets alongside with bootstrap(angular-bootstrap) tools, which are very useful for fast html application
-    development.
+    development. For styling I used sass css-preprocessor.
 </p>
