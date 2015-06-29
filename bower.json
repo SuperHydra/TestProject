@@ -11,13 +11,14 @@
     "angular-ui-utils": "*",
     "angular-bootstrap": "*",
     "angular-ui-router": "*",
-    "modernizr": "*" 
+    "modernizr": "*",
+    "bootstrap": "~3.3.5",
+    "angular-messages": "~1.4.1",
+    "angular-input-masks": "~1.5.2"
   },
   "devDependencies": {
     "angular-mocks": "*",
     "angular-scenario": "*"
   },
-  "overrides": {
-
-  }
+  "overrides": {}
 }

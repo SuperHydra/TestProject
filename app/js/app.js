@@ -1,46 +1,49 @@
-
 /*================================================================
-=>                  App = oneHydraMini
-==================================================================*/
+ =>                  App = oneHydraMini
+ ==================================================================*/
 /*global angular*/
 
-var app = angular.module('oneHydraMini', ["ngCookies", "ngResource", "ngSanitize", "ngRoute", "ngAnimate", "ui.utils", "ui.bootstrap", "ui.router"]);
+var app = angular.module('oneHydraMini', ["ngMessages", "ngCookies", "ngResource", "ngSanitize", "ngRoute", "ngAnimate",
+    "ui.utils", "ui.bootstrap", "ui.router", "ui.utils.masks"]);
 
 
-app.config(['$stateProvider', '$urlRouterProvider','$locationProvider','$httpProvider',
+app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$httpProvider',
     function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
-	'use strict';
+        'use strict';
 
-    $urlRouterProvider.otherwise('/volume-prediction');
 
-    $stateProvider
 
-        .state('volume-prediction', {
-            url: '/volume-prediction',
-            templateUrl: 'templates/volume-prediction.html'
-        })
+        $stateProvider
 
-        .state('about', {
-            // we'll get to this in a bit
-        });
+            .state('volume-prediction', {
+                url: '/volume-prediction',
+                controller: 'VolumePredictionCtrl',
+                templateUrl: '../templates/pages/volume-prediction.html'
+            })
 
-	// This is required for Browser Sync to work poperly
-	$httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-}]);
+            .state('about', {
+                url: '/about',
+                controller: 'AboutCtrl',
+                templateUrl: '../templates/pages/about.html'
+            });
+
+        $urlRouterProvider.otherwise('/volume-prediction');
+
+        // This is required for Browser Sync to work poperly
+        $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+    }]);
 
 
 /*================================================================
-=>                  oneHydraMini App Run()
-==================================================================*/
+ =>                  oneHydraMini App Run()
+ ==================================================================*/
 
 app.run(['$rootScope', function ($rootScope) {
 
-	'use strict';
+    'use strict';
 
-	console.log('Angular.js run() function...');
+    console.log('Angular.js run() function...');
 }]);
-
-
 
 
 /* ---> Do not delete this comment (Values) <--- */

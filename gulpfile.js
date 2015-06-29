@@ -98,75 +98,53 @@ gulp.task('js:hint', function () {
  =                          Concat                           =
  ============================================================*/
 
-gulp.task('concat', ['concat:bower:css', 'concat:js', 'concat:css']);
+gulp.task('concat', ['concat:bower:js', 'concat:bower:css', 'concat:js', 'concat:css']);
 
+gulp.task('concat:bower:js', function () {
+    console.log('-------------------------------------------------- CONCAT :bower:js');
+
+    var jsFilter = gulpPlugins.filter('**/*.js'),
+        assetsFilter = gulpPlugins.filter(['!**/*.js', '!**/*.css', '!**/*.scss']);
+
+    var stream = gulp.src(bowerFiles(bowerConfig), {base: SETTINGS.src.bower})
+        .pipe(jsFilter)
+        .pipe(gulpPlugins.concat('_bower.js'))
+        .pipe(gulpPlugins.if(isProduction, gulpPlugins.uglify()))
+        .pipe(gulp.dest(SETTINGS.build.bower))
+        .pipe(jsFilter.restore())
+        .pipe(assetsFilter)
+        .pipe(gulp.dest(SETTINGS.build.bower))
+        .pipe(assetsFilter.restore())
+        .pipe(gulpPlugins.connect.reload());
+    return stream;
+});
 
 gulp.task('concat:bower:css', function () {
-    console.log('-------------------------------------------------- CONCAT :bower');
+    console.log('-------------------------------------------------- CONCAT :bower:css');
 
     return gulp.src(SETTINGS.src.bower + '**/*.css')
         .pipe(map(function (file, callback) {
-                    var relativePath = path.dirname(path.relative(path.resolve(SETTINGS.src.bower), file.path));
+            var relativePath = path.dirname(path.relative(path.resolve(SETTINGS.src.bower), file.path));
 
-                    // CSS path resolving
-                    // Taken from https://github.com/enyojs/enyo/blob/master/tools/minifier/minify.js
-                    var contents = file.contents.toString().replace(/url\([^)]*\)/g, function (match) {
-                        // find the url path, ignore quotes in url string
-                        var matches = /url\s*\(\s*(('([^']*)')|("([^"]*)")|([^'"]*))\s*\)/.exec(match),
-                            url = matches[3] || matches[5] || matches[6];
+            // CSS path resolving
+            // Taken from https://github.com/enyojs/enyo/blob/master/tools/minifier/minify.js
+            var contents = file.contents.toString().replace(/url\([^)]*\)/g, function (match) {
+                // find the url path, ignore quotes in url string
+                var matches = /url\s*\(\s*(('([^']*)')|("([^"]*)")|([^'"]*))\s*\)/.exec(match),
+                    url = matches[3] || matches[5] || matches[6];
 
-                        // Don't modify data and http(s) urls
-                        if (/^data:/.test(url) || /^http(:?s)?:/.test(url)) {
-                            return 'url(' + url + ')';
-                        }
-                        return 'url(' + path.join(path.relative(SETTINGS.build.bower, SETTINGS.build.app), SETTINGS.build.bower, relativePath, url) + ')';
-                    });
-                    file.contents = new Buffer(contents);
+                // Don't modify data and http(s) urls
+                if (/^data:/.test(url) || /^http(:?s)?:/.test(url)) {
+                    return 'url(' + url + ')';
+                }
+                return 'url(' + path.join(path.relative(SETTINGS.build.bower, SETTINGS.build.app), SETTINGS.build.bower, relativePath, url) + ')';
+            });
+            file.contents = new Buffer(contents);
 
-                    callback(null, file);
-                }))
-        .pipe(gulpPlugins.concat('vendor.css'))
+            callback(null, file);
+        }))
+        .pipe(gulpPlugins.concat('_bower.css'))
         .pipe(gulp.dest(SETTINGS.build.bower));
-    //var jsFilter = gulpPlugins.filter('**/*.js'),
-    //    cssFilter = gulpPlugins.filter('**/*.css'),
-    //    assetsFilter = gulpPlugins.filter(['!**/*.js', '!**/*.css', '!**/*.scss']);
-    //
-    //var stream = gulp.src(bowerFiles(bowerConfig), {base: SETTINGS.src.bower})
-    //    .pipe(jsFilter)
-    //    .pipe(gulpPlugins.concat('_bower.js'))
-    //    .pipe(gulpPlugins.if(isProduction, gulpPlugins.uglify()))
-    //    .pipe(gulp.dest(SETTINGS.build.bower))
-    //    .pipe(jsFilter.restore())
-    //    .pipe(cssFilter)
-    //    .pipe(gulpPlugins.sass())
-    //    .pipe(map(function (file, callback) {
-    //        var relativePath = path.dirname(path.relative(path.resolve(SETTINGS.src.bower), file.path));
-    //
-    //        // CSS path resolving
-    //        // Taken from https://github.com/enyojs/enyo/blob/master/tools/minifier/minify.js
-    //        var contents = file.contents.toString().replace(/url\([^)]*\)/g, function (match) {
-    //            // find the url path, ignore quotes in url string
-    //            var matches = /url\s*\(\s*(('([^']*)')|("([^"]*)")|([^'"]*))\s*\)/.exec(match),
-    //                url = matches[3] || matches[5] || matches[6];
-    //
-    //            // Don't modify data and http(s) urls
-    //            if (/^data:/.test(url) || /^http(:?s)?:/.test(url)) {
-    //                return 'url(' + url + ')';
-    //            }
-    //            return 'url(' + path.join(path.relative(SETTINGS.build.bower, SETTINGS.build.app), SETTINGS.build.bower, relativePath, url) + ')';
-    //        });
-    //        file.contents = new Buffer(contents);
-    //
-    //        callback(null, file);
-    //    }))
-    //    .pipe(gulpPlugins.concat('_bower.css'))
-    //    .pipe(gulp.dest(SETTINGS.build.bower))
-    //    .pipe(cssFilter.restore())
-    //    .pipe(assetsFilter)
-    //    .pipe(gulp.dest(SETTINGS.build.bower))
-    //    .pipe(assetsFilter.restore())
-    //    .pipe(gulpPlugins.connect.reload());
-    //return stream;
 });
 
 gulp.task('concat:js', ['js:hint'], function () {
@@ -412,3 +390,26 @@ gulp.task('bs', function () {
         }
     });
 });
+
+
+//SIMPLE ENDPOINT FOR TESTING QUERIES
+//Lets require/import the HTTP module
+
+var express = require('express')
+var app = express();
+
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
+
+// respond with "hello world" when a GET request is made to the homepage
+app.post('/endpoint', function(req, res) {
+    console.log(req);
+    res.send('hello world')
+});
+
+app.listen(3000);
+
+
