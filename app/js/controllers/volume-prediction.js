@@ -8,7 +8,7 @@ app.controller('VolumePredictionCtrl', ['$scope','$rootScope','VolumeCalculator'
     'use strict';
     $scope.formData = {};
     $scope.hints = {};
-    $scope.futureVolume = {};
+    $scope.futureVolume = [];
     $rootScope.titleHeader = 'Volume Prediction';
 
     $scope.calculateFutureVolume = function () {

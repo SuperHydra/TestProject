@@ -39,7 +39,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="volume in futureVolume">
+                <tr ng-repeat="volume in futureVolume track by $index">
                     <th>{{$index+1}}</th>
                     <td>{{volume}}</td>
                 </tr>

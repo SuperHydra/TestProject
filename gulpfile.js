@@ -372,7 +372,7 @@ gulp.task('build:prod', function () {
     runSequence('copy', 'concat', 'watch');
 });
 
-gulp.task('default', ['build', 'server']);
+gulp.task('default', ['build','server']);
 
 // Just in case you are too lazy to type: $ gulp --type production
 gulp.task('prod', ['build:prod', 'server']);
@@ -395,7 +395,7 @@ gulp.task('bs', function () {
 //SIMPLE ENDPOINT FOR TESTING QUERIES
 //Lets require/import the HTTP module
 
-var express = require('express')
+var express = require('express');
 var app = express();
 
 app.use(function(req, res, next) {
@@ -411,5 +411,7 @@ app.post('/endpoint', function(req, res) {
 });
 
 app.listen(3000);
+
+
 
 

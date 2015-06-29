@@ -4,7 +4,7 @@
 /*global angular*/
 
 var app = angular.module('oneHydraMini', ["ngMessages", "ngCookies", "ngResource", "ngSanitize", "ngRoute", "ngAnimate",
-    "ui.utils", "ui.bootstrap", "ui.router", "ui.utils.masks"]);
+    "ui.utils", "ui.bootstrap", "ui.router"]);
 
 
 app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$httpProvider',
