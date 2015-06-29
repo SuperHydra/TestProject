@@ -1,3 +1,5 @@
+"use strict";
+
 app.service('VolumeCalculator', function () {
     this.getFutureVolume = function (initial, monthsCount) {
         var result = [];

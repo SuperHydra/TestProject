@@ -1,3 +1,5 @@
+"use strict";
+
 app.service('ServerAPI', ['$http', function ($http) {
     this.sendDataToServer = function (data, endpoint) {
         $http.post(endpoint + '/', data).

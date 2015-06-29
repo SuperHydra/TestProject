@@ -3,7 +3,7 @@
  ==================================================================*/
 /*global angular*/
 
-var app = angular.module('oneHydraMini', ["ngMessages", "ngCookies", "ngResource", "ngSanitize", "ngRoute", "ngAnimate",
+var app = angular.module('oneHydraMini', ['ngMessages', 'ngCookies', 'ngResource', 'ngSanitize', 'ngRoute', 'ngAnimate',
     "ui.utils", "ui.bootstrap", "ui.router"]);
 
 
