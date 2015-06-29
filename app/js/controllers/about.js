@@ -1,14 +1,13 @@
-
 /*================================================================
-=>                  Controller = About
-==================================================================*/
+ =>                  Controller = About
+ ==================================================================*/
 /*global app*/
 
 app.controller('AboutCtrl', ['$scope', '$rootScope', function ($scope, $rootScope) {
 
-	'use strict';
+    'use strict';
     $rootScope.titleHeader = 'About';
-	console.log('Controller ===  AboutCtrl');
+    console.log('Controller ===  AboutCtrl');
 }]);
 
 

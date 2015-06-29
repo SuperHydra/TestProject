@@ -3,7 +3,7 @@
  ==================================================================*/
 /*global app*/
 
-app.controller('VolumePredictionCtrl', ['$scope','$rootScope','VolumeCalculator','ServerAPI', function ($scope, $rootScope, VolumeCalculator, ServerAPI) {
+app.controller('VolumePredictionCtrl', ['$scope', '$rootScope', 'VolumeCalculator', 'ServerAPI', function ($scope, $rootScope, VolumeCalculator, ServerAPI) {
 
     'use strict';
     $scope.formData = {};
