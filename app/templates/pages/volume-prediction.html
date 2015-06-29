@@ -1,5 +1,5 @@
-<div class="volume-prediction">
-    <form name="volumePredictionInputForm" ng-submit="calculateFutureVolume()">
+<div ng-class="{'results-active': volumePredictionInputForm.$dirty&&submitted}" class="volume-prediction">
+    <form  name="volumePredictionInputForm" ng-submit="calculateFutureVolume()">
         <div class="form-group " ng-class="{'has-error': volumePredictionInputForm.volume.$invalid&&
         volumePredictionInputForm.volume.$dirty}">
             <input type="text" ng-model="formData.volume" class="form-control"
